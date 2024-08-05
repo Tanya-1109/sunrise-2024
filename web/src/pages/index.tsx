@@ -83,8 +83,6 @@ export default function Home() {
     }
   };
 
-  
-
   const handleUpdateTask = (task: Task) => {
     setUpdatingTask(task);
     setTitle(task.title);
@@ -122,13 +120,11 @@ export default function Home() {
     }
   };
 
-  // After deletion everything should be deleted
   const handleDeleteTask = async (taskId: number) => {
     const res = await fetch(`/api/hello?id=${taskId}`, {
       method: "DELETE",
     });
     if (res.ok) {
-      // Remove the deleted task from the state
       setAllTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
       setActiveTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
       setCompletedTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
@@ -138,112 +134,108 @@ export default function Home() {
   return (
     <div className={`min-h-screen relative bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 py-10 ${inter.className} `}>
       {openModal &&
-          <div className="w-[85%] z-[100] shadow-md mx-auto absolute top-28 left-24 bg-white bg-opacity-90 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mt-8 backdrop-blur-sm">
-            {updatingTask ? (
-              <>
-                <div className="flex justify-between">
-                  <h2 className="text-2xl font-semibold mb-4 text-gray-700">Update Task</h2>
-                  <div onClick={()=>{setOpenModal(false)}}>
-                    <ImCross color="black"/>
-                  </div>
-                </div>
-                <form onSubmit={handleSubmitUpdateTask} className="space-y-4">
-                  <input
-                    type="text"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <textarea
-                    placeholder="Description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Persona"
-                    value={persona}
-                    onChange={(e) => setPersona(e.target.value)}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Group"
-                    value={group}
-                    onChange={(e) => setGroup(Number(e.target.value))}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
-                  >
-                    Update Task
-                  </button>
-                </form>
-              </>
-            ) : (
-              <>
-                <div className="flex justify-between">
-                  <h2 className="text-2xl font-semibold mb-4 text-gray-700">Create Task</h2>
-                  <div onClick={()=>{setOpenModal(false)}}>
-                    <ImCross color="black"/>
-                  </div>
-                </div>
-                <form onSubmit={handleCreateTask} className="space-y-4">
-                  <input
-                    type="text"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <textarea
-                    placeholder="Description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Persona"
-                    value={persona}
-                    onChange={(e) => setPersona(e.target.value)}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Group"
-                    value={group}
-                    onChange={(e) => setGroup(Number(e.target.value))}
-                    required
-                    className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
-                  >
-                    Create Task
-                  </button>
-                </form>
-              </>
-            )}
-          </div>
-        }
-       <div className={`relative container mx-auto px-4 ${openModal ? "filter blur-md" : ""}`}>
+        <div className="w-[85%] z-[100] shadow-md mx-auto absolute top-28 left-24 bg-white bg-opacity-90 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mt-8 backdrop-blur-sm">
+          {updatingTask ? (
+            <>
+              <div className="flex justify-between">
+                <h2 className="text-2xl font-semibold mb-4 text-gray-700">Update Task</h2>
+                <ImCross color="black" onClick={() => setOpenModal(false)} />
+              </div>
+              <form onSubmit={handleSubmitUpdateTask} className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <textarea
+                  placeholder="Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="text"
+                  placeholder="Persona"
+                  value={persona}
+                  onChange={(e) => setPersona(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="number"
+                  placeholder="Group"
+                  value={group}
+                  onChange={(e) => setGroup(Number(e.target.value))}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="submit"
+                  className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+                >
+                  Update Task
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <div className="flex justify-between">
+                <h2 className="text-2xl font-semibold mb-4 text-gray-700">Create Task</h2>
+                <ImCross color="black" onClick={() => setOpenModal(false)} />
+              </div>
+              <form onSubmit={handleCreateTask} className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <textarea
+                  placeholder="Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="text"
+                  placeholder="Persona"
+                  value={persona}
+                  onChange={(e) => setPersona(e.target.value)}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="number"
+                  placeholder="Group"
+                  value={group}
+                  onChange={(e) => setGroup(Number(e.target.value))}
+                  required
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="submit"
+                  className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+                >
+                  Create Task
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+      }
+      <div className={`relative container mx-auto px-4 ${openModal ? "filter blur-md" : ""}`}>
         <div className="flex justify-between items-center mb-8">
           <div></div>
           <h1 className="text-4xl font-bold text-center text-white shadow-text">Taskboard System</h1>
-          <button 
-            className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105" 
+          <button
+            className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
             onClick={() => setOpenModal(true)}
           >
             + Create Task
