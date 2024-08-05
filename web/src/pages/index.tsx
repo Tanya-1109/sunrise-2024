@@ -83,19 +83,7 @@ export default function Home() {
     }
   };
 
-  // const handleActivateTask = async (taskId: number) => {
-  //   const res = await fetch("/api/hello", {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ id: taskId, completed: false }), // Assuming completed: false makes it active
-  //   });
-  //   if (res.ok) {
-  //     setAllTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-  //     fetchTasks("active");
-  //   }
-  // };
+  
 
   const handleUpdateTask = (task: Task) => {
     setUpdatingTask(task);
